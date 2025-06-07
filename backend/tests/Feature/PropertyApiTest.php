@@ -46,4 +46,18 @@ class PropertyApiTest extends TestCase
 
         $response->assertStatus(200)->assertJsonFragment(['name' => '新しい名前']);
     }
+
+    /** @test */
+    public function 物件を登録できること()
+    {
+        $response = $this->postJson('/api/createProperties', [
+            'name' => '東京都庁',
+            'address' => '東京都新宿区西新宿2丁目8-1',
+            'latitude' => 35.68948090992168,
+            'longitude' => 139.6916856787223,
+        ]);
+
+        $response->assertStatus(201)->assertJsonFragment(['name' => '東京都庁']);
+        $this->assertDatabaseHas('properties', ['name' => '東京都庁']);
+    }
 }

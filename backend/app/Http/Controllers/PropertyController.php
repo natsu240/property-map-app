@@ -36,4 +36,15 @@ class PropertyController extends Controller
         $property->update($request->all());
         return response()->json($property);
     }
+
+    /*
+     * 物件登録
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createProperty(Request $request): JsonResponse
+    {
+        $property = Property::create($request->all());
+        return response()->json($property, 201);
+    }
 }
