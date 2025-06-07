@@ -27,7 +27,7 @@ class PropertyApiTest extends TestCase
     /** @test */
     public function 存在しない物件は404になること()
     {
-        $response = $this->putJson('/api/properties/99999', [
+        $response = $this->putJson('/api/property/99999', [
             'name' => '新しい名前',
         ]);
         $response->assertStatus(404);
@@ -40,7 +40,7 @@ class PropertyApiTest extends TestCase
             'name' => '元の名前',
         ]);
 
-        $response = $this->putJson('/api/properties/' . $property->id, [
+        $response = $this->putJson('/api/property/' . $property->id, [
             'name' => '新しい名前',
         ]);
 
