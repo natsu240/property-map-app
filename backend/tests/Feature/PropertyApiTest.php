@@ -18,7 +18,7 @@ class PropertyApiTest extends TestCase
         Property::factory()->count(2)->create();
 
         // APIを叩く
-        $response = $this->getJson('/api/getProperties');
+        $response = $this->getJson('/api/properties');
 
         // ステータス200で、件数が2つ返る
         $response->assertStatus(200)->assertJsonCount(2);
@@ -27,7 +27,7 @@ class PropertyApiTest extends TestCase
     /** @test */
     public function 存在しない物件は404になること()
     {
-        $response = $this->putJson('/api/property/99999', [
+        $response = $this->putJson('/api/properties/99999', [
             'name' => '新しい名前',
         ]);
         $response->assertStatus(404);
@@ -40,7 +40,7 @@ class PropertyApiTest extends TestCase
             'name' => '元の名前',
         ]);
 
-        $response = $this->putJson('/api/updateProperty/' . $property->id, [
+        $response = $this->putJson('/api/properties/' . $property->id, [
             'name' => '新しい名前',
         ]);
 
@@ -50,7 +50,7 @@ class PropertyApiTest extends TestCase
     /** @test */
     public function 物件を登録できること()
     {
-        $response = $this->postJson('/api/createProperties', [
+        $response = $this->postJson('/api/properties', [
             'name' => '東京都庁',
             'address' => '東京都新宿区西新宿2丁目8-1',
             'latitude' => 35.68948090992168,
@@ -66,7 +66,7 @@ class PropertyApiTest extends TestCase
     {
         $property = Property::factory()->create();
 
-        $response = $this->deleteJson('/api/deleteProperty/' . $property->id);
+        $response = $this->deleteJson('/api/properties/' . $property->id);
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('properties', ['id' => $property->id]);
