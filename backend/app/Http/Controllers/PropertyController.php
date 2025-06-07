@@ -3,20 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\PropertyRepository;
+use Illuminate\Http\JsonResponse;
+use App\Models\Property;
 
 class PropertyController extends Controller
 {
-    protected $property_repository;
-
-    public function __construct(PropertyRepository $property_repository)
+    /*
+     * 物件一覧取得
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProperties(): JsonResponse
     {
-        $this->property_repository = $property_repository;
+        $properties = Property::all();
+        return response()->json($properties);
     }
 
-    public function getProperties()
+    /*
+     * 物件更新
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateProperty(Request $request, int $id): JsonResponse
     {
-        $properties = $this->property_repository->all();
-        return response()->json($properties);
+        $property = Property::find($id);
+
+        // 物件が存在しない場合は404エラーを返す
+        if (!$property) {
+            return abort(404);
+        }
+
+        $property->update($request->all());
+        return response()->json($property);
     }
 }
