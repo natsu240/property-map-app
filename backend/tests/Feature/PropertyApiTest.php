@@ -60,4 +60,15 @@ class PropertyApiTest extends TestCase
         $response->assertStatus(201)->assertJsonFragment(['name' => '東京都庁']);
         $this->assertDatabaseHas('properties', ['name' => '東京都庁']);
     }
+
+    /** @test */
+    public function 物件を削除できること()
+    {
+        $property = Property::factory()->create();
+
+        $response = $this->deleteJson('/api/deleteProperty/' . $property->id);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('properties', ['id' => $property->id]);
+    }
 }

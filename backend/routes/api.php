@@ -9,3 +9,5 @@ Route::get('/getProperties', [PropertyController::class, 'getProperties']);
 Route::put('/updateProperty/{id}', [PropertyController::class, 'updateProperty']);
 // 物件登録
 Route::post('/createProperties', [PropertyController::class, 'createProperty']);
+// 物件削除
+Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);

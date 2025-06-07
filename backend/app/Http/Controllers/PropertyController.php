@@ -47,4 +47,22 @@ class PropertyController extends Controller
         $property = Property::create($request->all());
         return response()->json($property, 201);
     }
+
+    /*
+     * 物件削除
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteProperty(int $id)
+    {
+        $property = Property::find($id);
+
+        // 物件が存在しない場合は404エラーを返す
+        if (!$property) {
+            return abort(404);
+        }
+
+        $property->delete();
+        return response()->json(null, 204);
+    }
 }
