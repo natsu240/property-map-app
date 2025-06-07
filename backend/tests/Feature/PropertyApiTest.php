@@ -40,7 +40,7 @@ class PropertyApiTest extends TestCase
             'name' => '元の名前',
         ]);
 
-        $response = $this->putJson('/api/property/' . $property->id, [
+        $response = $this->putJson('/api/updateProperty/' . $property->id, [
             'name' => '新しい名前',
         ]);
 
