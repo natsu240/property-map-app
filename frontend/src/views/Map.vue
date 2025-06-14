@@ -17,8 +17,6 @@ const props = defineProps({
 
 const map = ref(null)
 
-const apiKey = import.meta.env.GOOGLE_MAPS_API_KEY
-
 // GoogleMap用のscriptを一度だけ読み込み
 function loadGoogleMapsApi() {
   return new Promise((resolve, reject) => {
@@ -27,6 +25,7 @@ function loadGoogleMapsApi() {
       return
     }
     const script = document.createElement('script')
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
     script.async = true
     script.defer = true
